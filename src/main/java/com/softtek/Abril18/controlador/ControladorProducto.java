@@ -1,35 +1,42 @@
 package com.softtek.Abril18.controlador;
 
 import com.softtek.Abril18.modelo.Producto;
-import com.softtek.Abril18.repo.ProductoRepo;
-import com.softtek.Abril18.servicio.IProductoServicio;
+import com.softtek.Abril18.servicio.ProductoServicio;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.ParameterResolutionDelegate;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/productos")
+@CrossOrigin(origins = "http://localhost:4200")
 public class ControladorProducto {
     @Autowired
-    private IProductoServicio servicio;
-
-    @GetMapping
-    public Producto obtenerProducto(){
-        return servicio.obtenerProducto();
-    }
+    private ProductoServicio productoServicio;
 
     @GetMapping("/{id}")
-    public Producto obtenerUno(int id){
-        return
+    public Producto obtenerProducto(@PathVariable int id) {
+        return productoServicio.obtenerProducto(id);
     }
 
     @PostMapping
-    public Producto crearProducto(@RequestBody Producto p){
-        return servicio.crearProducto(p);
+    public Producto crearProducto(@RequestBody Producto producto) {
+        return productoServicio.crearProducto(producto);
     }
 
-    @DeleteMapping("/{idProducto}")
-    public void eliminarProducto(@PathVariable int idProducto){
-        servicio.eliminarProducto(idProducto);
+    @DeleteMapping("/{id}")
+    public void eliminarProducto(@PathVariable int id) {
+        productoServicio.eliminarProducto(id);
+    }
+
+    @PutMapping("/{id}")
+    public Producto modificarProducto(@PathVariable int id, @RequestBody Producto producto) {
+        producto.setIdProducto(id);
+        return productoServicio.modificarProducto(producto);
+    }
+
+    @GetMapping()
+    public List<Producto> obtenerProductos(){
+        return productoServicio.obtenerTodosProductos();
     }
 }

@@ -4,9 +4,9 @@ import com.softtek.Abril18.modelo.Producto;
 import java.util.List;
 
 public interface IProductoRepo {
-    Producto obtenerProducto();
-    Producto crearProducto(Producto p);
-    void eliminarProducto(int idProducto);
-    Producto modificarProducto(Producto p);
+    Producto obtenerProducto(int id);
+    Producto crearProducto(Producto producto);
+    void eliminarProducto(int id);
+    Producto modificarProducto(Producto producto);
     List<Producto> obtenerTodosProductos();
 }

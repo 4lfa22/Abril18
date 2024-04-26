@@ -1,30 +1,39 @@
 package com.softtek.Abril18.servicio;
 
 import com.softtek.Abril18.modelo.Producto;
-import com.softtek.Abril18.repo.ProductoRepo;
+import com.softtek.Abril18.repo.IProductoRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-public class ProductoServicio implements IProductoServicio{
+import java.util.List;
+
+@Service
+public class ProductoServicio implements IProductoServicio {
     @Autowired
-    private ProductoRepo repo;
+    private IProductoRepo productoRepo;
+
     @Override
-    public Producto obtenerProducto() {
-        return repo.obtenerProducto();
+    public Producto obtenerProducto(int id) {
+        return productoRepo.obtenerProducto(id);
     }
 
     @Override
-    public Producto crearProducto(Producto p) {
-        return repo.crearProducto(p);
+    public Producto crearProducto(Producto producto) {
+        return productoRepo.crearProducto(producto);
     }
 
     @Override
     public void eliminarProducto(int id) {
-
+        productoRepo.eliminarProducto(id);
     }
 
     @Override
-    public Producto modificarProducto(Producto p) {
-        return null;
+    public Producto modificarProducto(Producto producto) {
+        return productoRepo.modificarProducto(producto);
     }
 
+    @Override
+    public List<Producto> obtenerTodosProductos() {
+        return productoRepo.obtenerTodosProductos();
+    }
 }
